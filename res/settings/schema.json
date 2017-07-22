@@ -1,0 +1,38 @@
+{
+    "schema": {
+        "scope": "name.heqian.ifntt",
+        "version": "0.0.1",
+        "settings": [
+            {
+                "key": "description",
+                "displayName": "Trigger a IFTTT Webhook: https://ifttt.com/maker_webhooks",
+                "layout": "description"
+            },
+            {
+                "key": "key",
+                "displayName": "Key",
+                "layout": "textBox"
+            },
+            {
+                "key": "event",
+                "displayName": "Event",
+                "layout": "textBox"
+            },
+            {
+                "key": "value1",
+                "displayName": "Value 1 (optional)",
+                "layout": "textBox"
+            },
+            {
+                "key": "value2",
+                "displayName": "Value 2 (optional)",
+                "layout": "textBox"
+            },
+            {
+                "key": "value3",
+                "displayName": "Value 3 (optional)",
+                "layout": "textBox"
+            }
+        ]
+    }
+}

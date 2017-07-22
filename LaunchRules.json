@@ -1,0 +1,14 @@
+{
+    "voicePattern": [
+        {
+            "domain": "CUSTOMAPP",
+            "name": [
+                "signal"
+            ],
+            "phrase": [
+                "send signal",
+                "fire signal"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "defaultValues": {
+        "scope": "name.heqian.ifntt",
+        "version": "0.0.1",
+        "settings": {
+            "key": "",
+            "event": "",
+            "value1": "",
+            "value2": "",
+            "value3": ""
+        }
+    }
+}

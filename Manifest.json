@@ -1,0 +1,14 @@
+{
+    "package": "name.heqian.ifntt",
+    "manifestVersion": 1,
+    "name": "If N Then That",
+    "shortName": "IFNTT",
+    "author": {
+        "name": "Qian He",
+        "email": "me@heqian.name"
+    },
+    "description": "Trigger IFTTT Webhooks",
+    "version": 1,
+    "versionName": "0.0.1",
+    "offlineEnabled": false
+}
