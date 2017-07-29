@@ -7,8 +7,8 @@
         "name": "Qian He",
         "email": "me@heqian.name"
     },
-    "description": "Trigger IFTTT Webhooks",
-    "version": 1,
-    "versionName": "0.0.1",
+    "description": "Qian He\nTrigger IFTTT Webhooks",
+    "version": 2,
+    "versionName": "0.0.2",
     "offlineEnabled": false
 }
