@@ -1,6 +1,7 @@
 'use strict'
 
 var key
+var words
 
 da.segment.onpreprocess = function (trigger, args) {
     console.log('[onpreprocess]', { trigger: trigger, args: args })
@@ -15,7 +16,7 @@ da.segment.onstart = function (trigger, args) {
             if (config.key) {
                 key = config.key
                 var speechToText = new da.SpeechToText()
-                speechToText.startSpeechToText(generateCommand)
+                speechToText.startSpeechToText(stt)
             } else {
                 speak('Please configure your IFTTT key in the app.')
             }
@@ -28,22 +29,30 @@ da.segment.onstart = function (trigger, args) {
     })
 }
 
-var generateCommand = {
+da.segment.onresume = function () {
+    console.log('[onresume]')
+
+    var dataIndex = words.length
+    for (var i = 1; i < words.length - 2; i++) {  // Has to have at least one word before and one word after phrase 'with data'
+        if (words[i] === 'with' && words[i + 1] === 'data') {
+            dataIndex = i
+            break
+        }
+    }
+
+    var event = words.slice(0, dataIndex).join('_').toLowerCase()
+    var commands = words.slice(dataIndex + 2)
+    var value1 = commands[0]
+    var value2 = commands[1]
+    var value3 = commands[2]
+
+    ifttt(key, event, value1, value2, value3)
+}
+
+var stt = {
     onsuccess: function (results) {
         console.log('[startSpeechToText: onsuccess]', results)
-        var dataIndex = results.length
-        for (var i = 1; i < results.length - 2; i++) {  // Has to have at least one word before and one word after phrase 'with data'
-            if (results[i] === 'with' && results[i + 1] === 'data') {
-                dataIndex = i
-                break
-            }
-        }
-        var event = results.slice(0, dataIndex).join('_').toLowerCase()
-        var commands = results.slice(dataIndex + 2)
-        var value1 = commands[0]
-        var value2 = commands[1]
-        var value3 = commands[2]
-        ifttt(key, event, value1, value2, value3)
+        words = results
     },
 
     onerror: function (error) {
