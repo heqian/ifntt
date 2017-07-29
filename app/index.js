@@ -15,8 +15,7 @@ da.segment.onstart = function (trigger, args) {
             console.log('[getSegmentConfig: onsuccess]', config)
             if (config.key) {
                 key = config.key
-                var speechToText = new da.SpeechToText()
-                speechToText.startSpeechToText(stt)
+                da.segment.onresume()
             } else {
                 speak('Please configure your IFTTT key in the app.')
             }
@@ -31,6 +30,12 @@ da.segment.onstart = function (trigger, args) {
 
 da.segment.onresume = function () {
     console.log('[onresume]')
+
+    if (words === undefined) {
+        var speechToText = new da.SpeechToText()
+        speechToText.startSpeechToText(stt)
+        return
+    }
 
     var dataIndex = words.length
     for (var i = 1; i < words.length - 2; i++) {  // Has to have at least one word before and one word after phrase 'with data'
