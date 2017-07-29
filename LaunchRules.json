@@ -3,11 +3,11 @@
         {
             "domain": "CUSTOMAPP",
             "name": [
-                "signal"
+                "command",
+                "trigger"
             ],
             "phrase": [
-                "send signal",
-                "fire signal"
+                "(trigger|send|run|execute) command"
             ]
         }
     ]

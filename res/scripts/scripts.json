@@ -3,6 +3,6 @@
         "common": "Start segment"
     },
     "segmentEnd": {
-        "common": "Stop segment"
+        "common": "End segment"
     }
 }

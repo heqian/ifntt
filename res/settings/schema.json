@@ -5,32 +5,12 @@
         "settings": [
             {
                 "key": "description",
-                "displayName": "Trigger a IFTTT Webhook: https://ifttt.com/maker_webhooks",
+                "displayName": "Trigger IFTTT Webhooks: https://ifttt.com/maker_webhooks.\nFor example, if you have a Webhook with an event name \"turn_off_light\" in IFTTT, you can trigger this Webhook by asking Nigel, \"(trigger|send|run|execute) command\", and then say, \"turn off light\".\nYour IFTTT Key can be found here: https://ifttt.com/services/maker_webhooks/settings",
                 "layout": "description"
             },
             {
                 "key": "key",
-                "displayName": "Key",
-                "layout": "textBox"
-            },
-            {
-                "key": "event",
-                "displayName": "Event",
-                "layout": "textBox"
-            },
-            {
-                "key": "value1",
-                "displayName": "Value 1 (optional)",
-                "layout": "textBox"
-            },
-            {
-                "key": "value2",
-                "displayName": "Value 2 (optional)",
-                "layout": "textBox"
-            },
-            {
-                "key": "value3",
-                "displayName": "Value 3 (optional)",
+                "displayName": "IFTTT Key",
                 "layout": "textBox"
             }
         ]
