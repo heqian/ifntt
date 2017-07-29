@@ -5,7 +5,7 @@
         "settings": [
             {
                 "key": "description",
-                "displayName": "Trigger IFTTT Webhooks: https://ifttt.com/maker_webhooks\n\nFor example, if you have a Webhook with an event name \"turn_off_light\" in IFTTT, you can trigger this Webhook by asking Nigel, \"(trigger|send|run|execute) command\", and then say, \"turn off light\".\n\nYour IFTTT Key can be found here: https://ifttt.com/services/maker_webhooks/settings",
+                "displayName": "Trigger IFTTT Webhooks: https://ifttt.com/maker_webhooks\n\nFor example, if you have a Webhook with an event name \"turn_off_light\" in IFTTT, you can trigger this Webhook by asking Nigel, \"(trigger|send|run|execute) command\", and then say, \"turn off light\".\n\nYour IFTTT Key can be found here: https://ifttt.com/services/maker_webhooks/settings\n\n<Contact Us>\nQian He\nme@heqian.name",
                 "layout": "description"
             },
             {

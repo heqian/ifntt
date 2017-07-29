@@ -1,18 +1,25 @@
 'use strict'
 
-var key
-var words
+var key = ''
+var sentences = []
+var seperator = ' with parameters '
+
+if (!da.outputLog) {
+    da.outputLog = function (message) {
+        console.log.apply(console, [message])
+    }
+}
 
 da.segment.onpreprocess = function (trigger, args) {
-    console.log('[onpreprocess]', { trigger: trigger, args: args })
+    da.outputLog('[onpreprocess]', { trigger: trigger, args: args })
     da.startSegment(trigger, args)
 }
 
 da.segment.onstart = function (trigger, args) {
-    console.log('[onstart]', { trigger: trigger, args: args })
+    da.outputLog('[onstart]', { trigger: trigger, args: args })
     da.getSegmentConfig({
         onsuccess: function (config) {
-            console.log('[getSegmentConfig: onsuccess]', config)
+            da.outputLog('[getSegmentConfig: onsuccess]', config)
             if (config.key) {
                 key = config.key
                 da.segment.onresume()
@@ -22,46 +29,42 @@ da.segment.onstart = function (trigger, args) {
         },
 
         onerror: function (error) {
-            console.log('getSegmentConfig failed')
+            da.outputLog('getSegmentConfig failed')
             speak('Failed to get the segment configuration.')
         }
     })
 }
 
 da.segment.onresume = function () {
-    console.log('[onresume]')
+    da.outputLog('[onresume]')
 
-    if (words === undefined) {
+    if (sentences.length === 0) {
         var speechToText = new da.SpeechToText()
         speechToText.startSpeechToText(stt)
         return
     }
 
-    var dataIndex = words.length
-    for (var i = 1; i < words.length - 2; i++) {  // Has to have at least one word before and one word after phrase 'with data'
-        if (words[i] === 'with' && words[i + 1] === 'data') {
-            dataIndex = i
-            break
-        }
-    }
+    // Only use the one with the highest confidence
+    // e.g., ["turn on light", "turn on night"]
+    // e.g., ["buy stock with parameters Sony one hundred"]
+    var sentence = sentences[0]
+    var sIndex = sentence.indexOf(seperator)
 
-    var event = words.slice(0, dataIndex).join('_').toLowerCase()
-    var commands = words.slice(dataIndex + 2)
-    var value1 = commands[0]
-    var value2 = commands[1]
-    var value3 = commands[2]
+    if (sIndex < 1) sIndex = sentence.length
+    var event = sentence.slice(0, sIndex).split(' ').join('_')
+    var content = sentence.slice(sIndex + seperator.length)
 
-    ifttt(key, event, value1, value2, value3)
+    ifttt(key, event, content, sentence, seperator)
 }
 
 var stt = {
     onsuccess: function (results) {
-        console.log('[startSpeechToText: onsuccess]', results)
-        words = results
+        da.outputLog('[startSpeechToText: onsuccess]', results)
+        sentences = results
     },
 
     onerror: function (error) {
-        console.log('[startSpeechToText: onerror]', error)
+        da.outputLog('[startSpeechToText: onerror]', error)
         speak(error.messsage)
     }
 }
@@ -76,7 +79,7 @@ function ifttt(key, event, value1, value2, value3) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
-                speak('Command has been sent.')
+                speak('Sent: ' + sentences[0])
             } else {
                 speak('Failed to send command.')
             }
@@ -85,18 +88,20 @@ function ifttt(key, event, value1, value2, value3) {
     xhr.send(JSON.stringify(body))
 }
 
-function speak(text, stop = true) {
+function speak(text, stop) {
+    if (stop === undefined) stop = true
+
     var synthesis = da.SpeechSynthesis.getInstance()
     synthesis.speak(text, {
         onstart: function () {
-            console.log('[speak: onstart]')
+            da.outputLog('[speak: onstart]')
         },
         onend: function () {
-            console.log('[speak: onend]')
+            da.outputLog('[speak: onend]')
             if (stop) da.stopSegment()
         },
         onerror: function (error) {
-            console.log('[speak: onerror]', error)
+            da.outputLog('[speak: onerror]', error)
             da.stopSegment()
         }
     })
